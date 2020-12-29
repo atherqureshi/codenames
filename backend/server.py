@@ -4,13 +4,15 @@ import tornado.web
 
 class MainHandler(tornado.web.RequestHandler):
     def get(self):
-        self.write("Hello, world")
+        self.write({'message': "Hello, world"})
 
 
 def make_app():
-    return tornado.web.Application([
-        (r"/", MainHandler),
-    ])
+    return tornado.web.Application(
+        debug=True,
+        handlers=[
+            (r"/hello-world", MainHandler),
+        ])
 
 
 if __name__ == "__main__":

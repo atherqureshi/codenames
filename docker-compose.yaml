@@ -14,6 +14,19 @@ services:
       - mongo-express
     command: bash backend/run_local.sh
 
+  node:
+    image: codenames-frontend:local
+    build:
+      context: frontend
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    volumes:
+      - .:/app
+    depends_on:
+      - web
+    command: bash frontend/run_local.sh
+
   mongo:
     image: mongo
     restart: always
