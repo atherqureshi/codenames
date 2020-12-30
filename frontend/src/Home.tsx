@@ -47,7 +47,6 @@ export function Home() {
 
   return (
     <div className="App">
-      <h2> Code Names </h2>
       <Grid container className={classes.root} spacing={1}>
         <Grid item xs={12}>
           <Button
