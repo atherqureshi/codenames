@@ -41,8 +41,10 @@ You can also hit the backend server by hitting `localhost:8000`
 
 Command  | Explanation
 ------------- | -------------
-`make up` | Will build and start up all containers (takes some time)
+`make up` | Starts up all containers (Press `crtc-c` or `cmd-c` to stop them all
 `make exec-web` | Will shell you into the backend container
+`make build-web` | Rebuilds the Python container (i.e. you add dependencies)
+`make build-node` | Rebuilds the Node container (i.e. you add dependencies)
 
 The code in the web server and on the front end are all hot-reloading by default, so you can change the code
 and get results instantly.
