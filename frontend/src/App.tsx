@@ -11,10 +11,10 @@ import {
   makeStyles,
 } from '@material-ui/core/styles';
 import {
-  orange,
+  lightGreen,
   lightBlue,
   deepPurple,
-  deepOrange,
+  green,
 } from '@material-ui/core/colors';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import './styles.css';
@@ -50,8 +50,8 @@ const useStyles = makeStyles((theme) => ({
 export default function App() {
   const [darkState, setDarkState] = useState(false);
   const palletType = darkState ? 'dark' : 'light';
-  const mainPrimaryColor = darkState ? orange[500] : lightBlue[500];
-  const mainSecondaryColor = darkState ? deepOrange[900] : deepPurple[500];
+  const mainPrimaryColor = darkState ? lightGreen[500] : lightBlue[500];
+  const mainSecondaryColor = darkState ? green[900] : deepPurple[500];
   const darkTheme = createMuiTheme({
     palette: {
       type: palletType,
