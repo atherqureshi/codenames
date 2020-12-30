@@ -48,7 +48,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function App() {
-  const [darkState, setDarkState] = useState(false);
+  const [darkState, setDarkState] = useState(true);
   const palletType = darkState ? 'dark' : 'light';
   const mainPrimaryColor = darkState ? lightGreen[500] : lightBlue[500];
   const mainSecondaryColor = darkState ? green[900] : deepPurple[500];
