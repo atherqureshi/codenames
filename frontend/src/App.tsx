@@ -1,11 +1,42 @@
 import React, { useState, useEffect } from 'react';
 import './App.css';
-import { Button, Container } from '@material-ui/core';
+import {
+  Button,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogActions,
+  DialogContentText,
+  Grid,
+  TextField,
+} from '@material-ui/core';
+import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
+import { makeStyles } from '@material-ui/core/styles';
 
-function App() {
-  const [createSessionClicked, setCreateSessionClicked] = useState<Boolean>(
+export default function App() {
+  return (
+    <Router>
+      <div>
+        {/* A <Switch> looks through its children <Route>s and
+            renders the first one that matches the current URL. */}
+        <Switch>
+          <Route path="/">
+            <Home />
+          </Route>
+          <Route path="/session">
+            <Session />
+          </Route>
+        </Switch>
+      </div>
+    </Router>
+  );
+}
+
+function Home() {
+  const [createSessionClicked, setCreateSessionClicked] = useState<boolean>(
     false
   );
+  const [joinSessionClicked, setJoinSessionClicked] = useState<boolean>(false);
 
   useEffect(() => {
     if (createSessionClicked) {
@@ -19,26 +50,91 @@ function App() {
     }
   }, [createSessionClicked]);
 
+  const useStyles = makeStyles((theme) => ({
+    root: {
+      flexGrow: 1,
+    },
+    paper: {
+      height: 140,
+      width: 100,
+    },
+    control: {
+      padding: theme.spacing(2),
+    },
+  }));
+
+  const classes = useStyles();
+
   return (
     <div className="App">
       <body>
-        <Container>
-          <p> Code Names </p>
-          <Button
-            variant="outlined"
-            color="primary"
-            size="large"
-            onClick={() => {
-              setCreateSessionClicked(true);
-            }}
-          >
-            Start a Session
-          </Button>
-          {createSessionClicked && <p> Creating Session...</p>}
-        </Container>
+        <h2> Code Names </h2>
+        <Grid container className={classes.root} spacing={1}>
+          <Grid item xs={12}>
+            <Button
+              variant="outlined"
+              color="primary"
+              size="large"
+              onClick={() => {
+                setCreateSessionClicked(true);
+              }}
+            >
+              Start Session
+            </Button>
+          </Grid>
+          <Grid item xs={12}>
+            <Button
+              variant="outlined"
+              color="primary"
+              size="large"
+              onClick={() => {
+                setJoinSessionClicked(true);
+              }}
+            >
+              Join Session
+            </Button>
+          </Grid>
+        </Grid>
+        <Dialog
+          open={joinSessionClicked}
+          keepMounted
+          onClose={() => setJoinSessionClicked(false)}
+          aria-labelledby="alert-dialog-slide-title"
+          aria-describedby="alert-dialog-slide-description"
+        >
+          <DialogTitle id="join-session-dialog">{'Join Session'}</DialogTitle>
+          <DialogContent>
+            <DialogContentText id="alert-dialog-slide-description">
+              Session Id
+            </DialogContentText>
+            <form>
+              <TextField
+                required
+                id="outlined-required"
+                label="Required"
+                defaultValue=""
+                variant="outlined"
+              />
+            </form>
+          </DialogContent>
+          <DialogActions>
+            <Button
+              onClick={() => setJoinSessionClicked(false)}
+              color="primary"
+            >
+              Close
+            </Button>
+            <Button component={Link} to="/session" color="primary">
+              Join
+            </Button>
+          </DialogActions>
+        </Dialog>
+        {createSessionClicked && <p> Creating Session...</p>}
       </body>
     </div>
   );
 }
 
-export default App;
+function Session() {
+  return <p>Session Page</p>;
+}

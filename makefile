@@ -8,4 +8,4 @@ build-web:
 	docker-compose build web
 
 build-node:
-	docker-compose build node
+	docker-compose build --no-cache node

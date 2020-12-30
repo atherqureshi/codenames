@@ -3,29 +3,29 @@ services:
   web:
     image: codenames-backend:local
     build:
-      context: backend
+      context: ./backend
       dockerfile: Dockerfile
     ports:
       - "8000:8000"
     volumes:
-      - .:/app
+      - ./backend:/app
     depends_on:
       - mongo
       - mongo-express
-    command: bash backend/run_local.sh
+    command: bash run_local.sh
 
   node:
     image: codenames-frontend:local
     build:
-      context: frontend
+      context: ./frontend
       dockerfile: Dockerfile
     ports:
       - "3000:3000"
     volumes:
-      - .:/app
+      - ./frontend:/app
     depends_on:
       - web
-    command: bash frontend/run_local.sh
+    command: bash run_local.sh
 
   mongo:
     image: mongo
