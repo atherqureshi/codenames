@@ -20,11 +20,11 @@ export default function App() {
         {/* A <Switch> looks through its children <Route>s and
             renders the first one that matches the current URL. */}
         <Switch>
-          <Route path="/">
-            <Home />
-          </Route>
           <Route path="/session">
             <Session />
+          </Route>
+          <Route path="/">
+            <Home />
           </Route>
         </Switch>
       </div>
@@ -67,70 +67,65 @@ function Home() {
 
   return (
     <div className="App">
-      <body>
-        <h2> Code Names </h2>
-        <Grid container className={classes.root} spacing={1}>
-          <Grid item xs={12}>
-            <Button
-              variant="outlined"
-              color="primary"
-              size="large"
-              onClick={() => {
-                setCreateSessionClicked(true);
-              }}
-            >
-              Start Session
-            </Button>
-          </Grid>
-          <Grid item xs={12}>
-            <Button
-              variant="outlined"
-              color="primary"
-              size="large"
-              onClick={() => {
-                setJoinSessionClicked(true);
-              }}
-            >
-              Join Session
-            </Button>
-          </Grid>
+      <h2> Code Names </h2>
+      <Grid container className={classes.root} spacing={1}>
+        <Grid item xs={12}>
+          <Button
+            variant="outlined"
+            color="primary"
+            size="large"
+            onClick={() => {
+              setCreateSessionClicked(true);
+            }}
+          >
+            Start Session
+          </Button>
         </Grid>
-        <Dialog
-          open={joinSessionClicked}
-          keepMounted
-          onClose={() => setJoinSessionClicked(false)}
-          aria-labelledby="alert-dialog-slide-title"
-          aria-describedby="alert-dialog-slide-description"
-        >
-          <DialogTitle id="join-session-dialog">{'Join Session'}</DialogTitle>
-          <DialogContent>
-            <DialogContentText id="alert-dialog-slide-description">
-              Session Id
-            </DialogContentText>
-            <form>
-              <TextField
-                required
-                id="outlined-required"
-                label="Required"
-                defaultValue=""
-                variant="outlined"
-              />
-            </form>
-          </DialogContent>
-          <DialogActions>
-            <Button
-              onClick={() => setJoinSessionClicked(false)}
-              color="primary"
-            >
-              Close
-            </Button>
-            <Button component={Link} to="/session" color="primary">
-              Join
-            </Button>
-          </DialogActions>
-        </Dialog>
-        {createSessionClicked && <p> Creating Session...</p>}
-      </body>
+        <Grid item xs={12}>
+          <Button
+            variant="outlined"
+            color="primary"
+            size="large"
+            onClick={() => {
+              setJoinSessionClicked(true);
+            }}
+          >
+            Join Session
+          </Button>
+        </Grid>
+      </Grid>
+      <Dialog
+        open={joinSessionClicked}
+        keepMounted
+        onClose={() => setJoinSessionClicked(false)}
+        aria-labelledby="alert-dialog-slide-title"
+        aria-describedby="alert-dialog-slide-description"
+      >
+        <DialogTitle id="join-session-dialog">{'Join Session'}</DialogTitle>
+        <DialogContent>
+          <DialogContentText id="alert-dialog-slide-description">
+            Session Id
+          </DialogContentText>
+          <form>
+            <TextField
+              required
+              id="outlined-required"
+              label="Required"
+              defaultValue=""
+              variant="outlined"
+            />
+          </form>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={() => setJoinSessionClicked(false)} color="primary">
+            Close
+          </Button>
+          <Button component={Link} to="/session" color="primary">
+            Join
+          </Button>
+        </DialogActions>
+      </Dialog>
+      {createSessionClicked && <p> Creating Session...</p>}
     </div>
   );
 }

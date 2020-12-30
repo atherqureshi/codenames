@@ -9,7 +9,8 @@ The gcp hosted version of the game canbe reached at: TBD
 The idea is long-polling happening on the frontend to the backend service for game state.
 The frontend will handle all codenames logic, and the backend will allow 
 creation of sessions, and keeping global state across all clients.
-Each game will keep its session for 24 hours (This is set in the TTL of each key)
+Each game will keep its session for 24 hours (This is set in the TTL of each key) OR will close a session
+if there are no clients connected to it (checked lazily when a client disconnects if it's the last one)
 
 I am using CORS ie. there's a proxy to connect to route the HTTP calls to the backend service.
 
