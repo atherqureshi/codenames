@@ -8,8 +8,8 @@ The gcp hosted version of the game canbe reached at: TBD
 
 The idea is long-polling happening on the frontend to the backend service for game state.
 The frontend will handle all codenames logic, and the backend will allow 
-creation of sessions, and keeping global state across all cients.
-Each game willkeep its session for 24 hours (This is set in the TTL of each key)
+creation of sessions, and keeping global state across all clients.
+Each game will keep its session for 24 hours (This is set in the TTL of each key)
 
 I am using CORS ie. there's a proxy to connect to route the HTTP calls to the backend service.
 
@@ -21,7 +21,8 @@ Containers  | Explanation
 ------------- | -------------
 codenames-frontend  | React/TSX node application that hosts the front end assets
 codenames-backend  | Python Tornado service managing game state and sessions
-mongodb, mongodb-express  | NoSQL DB, used to store game state per session with TTLs
+mongodb | NoSQL DB, used to store game state per session with TTLs
+mongodb-express | optional web app that allows you to see what's in the mongoDB
 
 ## Deployment
 
