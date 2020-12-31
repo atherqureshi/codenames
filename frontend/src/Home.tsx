@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import { makeStyles } from '@material-ui/core/styles';
 import {
   Button,
   Dialog,
@@ -30,27 +29,12 @@ export function Home() {
     }
   }, [createSessionClicked]);
 
-  const useStyles = makeStyles((theme) => ({
-    root: {
-      flexGrow: 1,
-    },
-    paper: {
-      height: 140,
-      width: 100,
-    },
-    control: {
-      padding: theme.spacing(2),
-    },
-  }));
-
-  const classes = useStyles();
-
   return (
     <div className="App">
-      <Grid container className={classes.root} spacing={1}>
+      <Grid container spacing={1}>
         <Grid item xs={12}>
           <Button
-            variant="outlined"
+            variant="contained"
             color="primary"
             size="large"
             onClick={() => {
@@ -62,7 +46,7 @@ export function Home() {
         </Grid>
         <Grid item xs={12}>
           <Button
-            variant="outlined"
+            variant="contained"
             color="primary"
             size="large"
             onClick={() => {

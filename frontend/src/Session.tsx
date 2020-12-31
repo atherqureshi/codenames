@@ -6,7 +6,7 @@ import Grid from '@material-ui/core/Grid';
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
-      flexGrow: 1,
+      flexGrow: 2,
     },
     paper: {
       padding: theme.spacing(1),
@@ -22,13 +22,19 @@ export function Session() {
   function FormRow() {
     return (
       <React.Fragment>
-        <Grid item xs={4}>
+        <Grid item xs={3}>
           <Paper className={classes.paper}>item</Paper>
         </Grid>
-        <Grid item xs={4}>
+        <Grid item xs={3}>
           <Paper className={classes.paper}>item</Paper>
         </Grid>
-        <Grid item xs={4}>
+        <Grid item xs={3}>
+          <Paper className={classes.paper}>item</Paper>
+        </Grid>
+        <Grid item xs={3}>
+          <Paper className={classes.paper}>item</Paper>
+        </Grid>
+        <Grid item xs={3}>
           <Paper className={classes.paper}>item</Paper>
         </Grid>
       </React.Fragment>
@@ -36,23 +42,9 @@ export function Session() {
   }
 
   return (
-    <div className={classes.root}>
-      <Grid container spacing={1}>
-        <Grid container item xs={12} spacing={3}>
-          <FormRow />
-        </Grid>
-        <Grid container item xs={12} spacing={3}>
-          <FormRow />
-        </Grid>
-        <Grid container item xs={12} spacing={3}>
-          <FormRow />
-        </Grid>
-        <Grid container item xs={12} spacing={3}>
-          <FormRow />
-        </Grid>
-        <Grid container item xs={12} spacing={3}>
-          <FormRow />
-        </Grid>
+    <div>
+      <Grid container spacing={5}>
+        <FormRow />
       </Grid>
     </div>
   );
