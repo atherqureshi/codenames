@@ -53,13 +53,13 @@ export function Session() {
         <Grid item sm={12} md>
           <Grid container direction="row" spacing={3}>
             <Grid item xs={6} sm={3}>
-              Score
+              9 - 8
             </Grid>
             <Grid item xs={6} sm={3}>
-              Turn
+              Blue's Turn
             </Grid>
             <Grid item xs={6} sm={3}>
-              Neutrals: 5
+              Neutrals Remaining: 5
             </Grid>
             <Grid item xs={6} sm={3}>
               <Button variant="contained"> Spymaster </Button>
@@ -139,7 +139,9 @@ export function Session() {
             <Button variant="outlined">Copy URL to Game </Button>
           </Grid>
           <Grid item xs={6} sm={3}>
-            <Button variant="contained">Next Turn</Button>
+            <Button variant="contained" color="primary">
+              Next Turn
+            </Button>
           </Grid>
         </Grid>
       </Grid>
