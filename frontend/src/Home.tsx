@@ -1,14 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import {
-  Button,
-  Dialog,
-  DialogActions,
-  DialogContent,
-  DialogContentText,
-  DialogTitle,
-  Grid,
-  TextField,
-} from '@material-ui/core';
+import { Box, Button, Grid, TextField } from '@material-ui/core';
 import { Link } from 'react-router-dom';
 
 export function Home() {
@@ -30,8 +21,8 @@ export function Home() {
   }, [createSessionClicked]);
 
   return (
-    <div className="App">
-      <Grid container spacing={1}>
+    <Box className="App">
+      <Grid container spacing={4} direction="column">
         <Grid item xs={12}>
           <Button
             variant="contained"
@@ -39,6 +30,7 @@ export function Home() {
             size="large"
             onClick={() => {
               setCreateSessionClicked(true);
+              setJoinSessionClicked(false);
             }}
           >
             Start Session
@@ -50,25 +42,16 @@ export function Home() {
             color="primary"
             size="large"
             onClick={() => {
-              setJoinSessionClicked(true);
+              setJoinSessionClicked(!joinSessionClicked);
             }}
           >
             Join Session
           </Button>
         </Grid>
       </Grid>
-      <Dialog
-        open={joinSessionClicked}
-        keepMounted
-        onClose={() => setJoinSessionClicked(false)}
-        aria-labelledby="alert-dialog-slide-title"
-        aria-describedby="alert-dialog-slide-description"
-      >
-        <DialogTitle id="join-session-dialog">{'Join Session'}</DialogTitle>
-        <DialogContent>
-          <DialogContentText id="alert-dialog-slide-description">
-            Session Id
-          </DialogContentText>
+      {joinSessionClicked && (
+        <Grid item xs={12}>
+          <p /> <p />
           <form>
             <TextField
               required
@@ -76,19 +59,15 @@ export function Home() {
               label="Required"
               defaultValue=""
               variant="outlined"
+              helperText="Enter the session id of the game you want to join"
             />
           </form>
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={() => setJoinSessionClicked(false)} color="primary">
-            Close
-          </Button>
           <Button component={Link} to="/session" color="primary">
             Join
           </Button>
-        </DialogActions>
-      </Dialog>
+        </Grid>
+      )}
       {createSessionClicked && <p> Creating Session...</p>}
-    </div>
+    </Box>
   );
 }
