@@ -12,9 +12,6 @@ services:
     depends_on:
       - redis
     command: bash run_local.sh
-    environment:
-      - FIRESTORE_EMULATOR_HOST=firestore:8200
-      - FIRESTORE_PROJECT_ID=local-codenames
 
   node:
     image: codenames-frontend:local
