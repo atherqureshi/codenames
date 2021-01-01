@@ -1,20 +1,21 @@
 # Codenames
 Web implementation of the codenames board game, using react for frontend, and tornado backend.
-Data is stored in MongoDB. This is all hosted using free cloud infra
+Data is stored in redis. This is all hosted using free cloud infra
 
-The gcp hosted version of the game canbe reached at: TBD
+The gcp hosted version of the game can be reached at: TBD
 
 ## Application Structure
 
 The idea is long-polling happening on the frontend to the backend service for game state.
 The frontend will handle all codenames logic, and the backend will allow 
 creation of sessions, and keeping global state across all clients.
-Each game will keep its session for 24 hours (This is set in the TTL of each key) OR will close a session
-if there are no clients connected to it (checked lazily when a client disconnects if it's the last one)
+
+Each game will keep its session for an hour (This is set in the TTL of each key) after each creation or update.
+If redis goes down, I can refresh the sessions on next update.
 
 I am using CORS ie. there's a proxy to connect to route the HTTP calls to the backend service.
 
-The sessions are stored in an mongoDB key-value pair. The key is simply an UUID for the game session 
+The sessions are stored in redis as key-value pair. The key is simply a UUID for the game session 
 generated when the game is first started, and the value is a JSON representing the state
 of the game.
 
@@ -22,14 +23,12 @@ Containers  | Explanation
 ------------- | -------------
 codenames-frontend  | React/TSX node application that hosts the front end assets
 codenames-backend  | Python Tornado service managing game state and sessions
-mongodb | NoSQL DB, used to store game state per session with TTLs
-mongodb-express | optional web app that allows you to see what's in the mongoDB
+redis | in-memory key value store, used to store game state per session with TTLs
 
 ## Deployment
 
 Codenames can be run local via docker-compose, and run on premise if you want (Just get to localhost:3000)
 
-I will be running this on the free tier of mongoDB and google cloud run + writing a CI/CD.
 I will also need to use Tornado with some sort of multithreading system / load balancing in app, right now local is 
 single-threaded server.
 
@@ -63,9 +62,11 @@ Why did I use React?
 
 I am familiar with react, and I wanted a front end that could handle all the game logic without messy JS.
 
-Why did I use MongoDB?
+Why did I use Redis?
 
-MongoDB was free, and had the requirements I needed (key value storage with TTLs)
+Had the requirements I needed (key value storage with TTLs) and is fast. Very easy to test locally. It is costly, 
+but I am just hosting it on a container and hoping it doesn't crash or gcp doesn't charge me. Also, if it crashes, 
+I can take the game state from a client!
 
 Why did you do this? Folks have already made this!
 

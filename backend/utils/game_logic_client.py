@@ -1,7 +1,7 @@
 from utils.types import GameState, CardType, Card
 from typing import List
 import random
-import datetime
+import time
 
 
 class GameLogicClient:
@@ -21,4 +21,4 @@ class GameLogicClient:
         else:
             cards += [Card(word=word, type=CardType.BLUE) for word in words[8:17]]
             cards += [Card(word=word, type=CardType.RED) for word in words[17:]]
-        return GameState(cards=cards, created_timestamp=datetime.datetime.now(), session_id=session_id)
+        return GameState(cards=cards, created_timestamp=time.time(), session_id=session_id)

@@ -10,7 +10,7 @@ export function Home() {
 
   useEffect(() => {
     if (createSessionClicked) {
-      fetch('/create-session', { method: 'POST' })
+      fetch('/session', { method: 'POST' })
         .then((response) => response.json())
         .then((data) => console.log(data))
         .catch((error) => {

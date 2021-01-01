@@ -1,7 +1,7 @@
 from utils import GameLogicClient
 from utils.types import CardType
 from freezegun import freeze_time
-import datetime
+import time
 
 
 class TestGameLogicClient:
@@ -38,7 +38,8 @@ class TestGameLogicClient:
     def test_generate_will_have_all_attributes_given_session_id(self):
         client = GameLogicClient()
         with freeze_time("2012-01-14"):
+            current_time = time.time()
             game_state = client.generate_game(session_id="123")
             assert len(game_state.cards) == 25
             assert game_state.session_id == "123"
-            assert game_state.created_timestamp == datetime.datetime(2012, 1, 14)
+            assert game_state.created_timestamp == current_time

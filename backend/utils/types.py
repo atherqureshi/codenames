@@ -1,6 +1,5 @@
 from dataclasses import dataclass
 from enum import Enum
-import datetime
 from typing import List
 
 
@@ -9,6 +8,9 @@ class CardType(Enum):
     RED = "Red"
     GRAY = "Gray"
     BLACK = "Black"
+
+    def __deepcopy__(self, memo):
+        return self.value
 
 
 @dataclass
@@ -20,5 +22,5 @@ class Card:
 @dataclass
 class GameState:
     session_id: str
-    created_timestamp: datetime.datetime
+    created_timestamp: float
     cards: List[Card]
