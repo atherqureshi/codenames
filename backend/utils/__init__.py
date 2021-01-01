@@ -1,7 +1,7 @@
-from .mongodb_client import MongoDbClient
+from .fire_base_client import FireBaseClient
 from .game_logic_client import GameLogicClient
 
 __all__ = [
-    "MongoDbClient",
+    "FireBaseClient",
     "GameLogicClient"
 ]

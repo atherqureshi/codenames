@@ -10,9 +10,11 @@ services:
     volumes:
       - ./backend:/app
     depends_on:
-      - mongo
-      - mongo-express
+      - firestore
     command: bash run_local.sh
+    environment:
+      - FIRESTORE_EMULATOR_HOST=firestore:8200
+      - FIRESTORE_PROJECT_ID=local-codenames
 
   node:
     image: codenames-frontend:local
@@ -27,20 +29,8 @@ services:
       - web
     command: bash run_local.sh
 
-  mongo:
-    image: mongo
-    restart: always
-    ports:
-      - 27017:27017
+  firestore:
+    image: mtlynch/firestore-emulator
     environment:
-      MONGO_INITDB_ROOT_USERNAME: root
-      MONGO_INITDB_ROOT_PASSWORD: example
-
-  mongo-express:
-    image: mongo-express
-    restart: always
-    ports:
-      - 8081:8081
-    environment:
-      ME_CONFIG_MONGODB_ADMINUSERNAME: root
-      ME_CONFIG_MONGODB_ADMINPASSWORD: example
+      - FIRESTORE_PROJECT_ID=local-codenames
+      - PORT=8200

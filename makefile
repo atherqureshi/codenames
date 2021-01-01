@@ -1,11 +1,11 @@
 up:
 	docker-compose up
 
-exec-web-alone:
+bash-web-alone:
 	docker-compose run --no-deps web bash
 
-exec-web:
-	docker-compose exec web
+bash-web:
+	docker-compose exec web bash
 
 test-unit-web:
 	docker-compose run --no-deps web pytest tests/unit
