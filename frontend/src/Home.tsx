@@ -12,7 +12,10 @@ export function Home() {
     if (createSessionClicked) {
       fetch('/session', { method: 'POST' })
         .then((response) => response.json())
-        .then((data) => console.log(data))
+        .then((data) => {
+          console.log(data);
+          setCreateSessionClicked(false);
+        })
         .catch((error) => {
           console.log(error.message);
           setCreateSessionClicked(false);
