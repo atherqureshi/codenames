@@ -7,21 +7,13 @@ from typing import Dict, Optional, Awaitable
 import json
 
 
-class SessionHandler(tornado.web.RequestHandler):
+class UpdateSessionHandler(tornado.web.RequestHandler):
     """Turn this async!
     https://github.com/tornadoweb/tornado/blob/stable/demos/chat/chatdemo.py
     """
 
     def data_received(self, chunk: bytes) -> Optional[Awaitable[None]]:
         pass
-
-    def get(self):
-        """
-        return session payload from mongodb if the session has changed, use long polling
-        """
-        session_id = self.get_argument('session_id')
-        mongo_client = SessionStore()
-        self.write(mongo_client.get_session(session_id=session_id))
 
     def post(self):
         """

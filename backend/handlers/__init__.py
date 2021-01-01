@@ -1,5 +1,7 @@
-from .session_handler import SessionHandler
+from .update_session_handler import UpdateSessionHandler
+from .get_session_handler import GetSessionHandler
 
 __all__ = [
-    "SessionHandler"
+    "GetSessionHandler",
+    "UpdateSessionHandler"
 ]
