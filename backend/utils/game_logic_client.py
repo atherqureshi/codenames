@@ -21,4 +21,5 @@ class GameLogicClient:
         else:
             cards += [Card(word=word, type=CardType.BLUE) for word in words[8:17]]
             cards += [Card(word=word, type=CardType.RED) for word in words[17:]]
+        random.shuffle(cards)
         return GameState(cards=cards, created_timestamp=time.time(), session_id=session_id)
