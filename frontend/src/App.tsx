@@ -16,9 +16,10 @@ import {
   deepPurple,
   green,
 } from '@material-ui/core/colors';
-import { Grid, Card, Button, Paper } from '@material-ui/core';
+import { Grid, Button, Paper } from '@material-ui/core';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import './styles.css';
+import { HowToPlayCard } from './HowToPlayCard';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -42,7 +43,6 @@ const useStyles = makeStyles((theme) => ({
 
 export default function App() {
   const [darkState, setDarkState] = useState<boolean>(true);
-  const [helpdialogClicked, setHelpDialogClicked] = useState<boolean>(false);
   const palletType = darkState ? 'dark' : 'light';
   const mainPrimaryColor = darkState ? lightGreen[500] : lightBlue[500];
   const mainSecondaryColor = darkState ? green[900] : deepPurple[500];
@@ -62,6 +62,8 @@ export default function App() {
   };
 
   const classes = useStyles();
+
+  const [helpdialogClicked, setHelpDialogClicked] = useState<boolean>(false);
 
   return (
     <Router>
@@ -101,9 +103,7 @@ export default function App() {
             <Grid item md>
               <Paper variant="outlined" className={classes.paper}>
                 <Switch>
-                  <Route path="/session">
-                    <Session />
-                  </Route>
+                  <Route path="/session/:session_id" children={<Session />} />
                   <Route path="/">
                     <Home />
                   </Route>
@@ -122,26 +122,7 @@ export default function App() {
             </Grid>
             {helpdialogClicked && (
               <Grid item md>
-                <Card>
-                  Goal: Codebreakers correctly guess all their team's color's
-                  cards without stepping on a bomb <br /> <br />
-                  Round Format: <br /> <br />
-                  Team with 9 cards starts <br /> <br /> 1. Spymasters give a
-                  one word hint and a number (pointing to amount of potential
-                  cards) to codebreakers at the start of their respective teams
-                  round <br /> <br />
-                  2. Code breakers try to select a card pertaining to the
-                  spymaster's hint <br /> <br />
-                  A) If the Code breaker hits their team colors card, it gets
-                  flipped, codebreaker can continue guessing until number runs
-                  out <br /> <br />
-                  B) if the code breaker hits the other teams colors card, other
-                  teams card gets flipped, and turn is over <br />
-                  <br />
-                  C) If the CodeBreaker hits a bomb, then their team
-                  automatically loses the game <br />
-                  <br />
-                </Card>
+                <HowToPlayCard />
               </Grid>
             )}
             <Grid item md>

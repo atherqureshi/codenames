@@ -12,7 +12,7 @@ class SessionStore:
         return self.client.exists(session_id)
 
     def store_session(self, session_id: str, game_state: dict) -> None:
-        self.client.set(name=session_id, value=json.dumps(game_state), ex=60*60*60)
+        self.client.set(name=session_id, value=json.dumps(game_state), ex=60*60*24)
 
     def get_session(self, session_id) -> Optional[Dict]:
         data: Optional[bytes] = self.client.get(session_id)

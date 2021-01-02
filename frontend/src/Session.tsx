@@ -1,7 +1,9 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import { Button } from '@material-ui/core';
 import Grid from '@material-ui/core/Grid';
+import { useParams } from 'react-router-dom';
+import { validateSessionId } from './util';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -12,7 +14,34 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
+export type Card = {
+  word: string;
+  card_type: 'Blue' | 'Red' | 'Gray' | 'Black';
+};
+
+export type GameState = {
+  session_id: string;
+  updated_timestamp: number;
+  cards: Card[];
+};
+
 export function Session() {
+  console.log(useParams());
+  const { sumParams } = useParams<{ sumParams: string }>();
+  console.log(sumParams);
+  const [gameState, setGameState] = useState<GameState>();
+
+  console.log(sumParams);
+
+  useEffect(() => {
+    if (validateSessionId(sumParams)) {
+      fetch(`/session/${sumParams}`)
+        .then((response) => response.json())
+        .then((data: GameState) => setGameState(data))
+        .catch((error) => console.log(error));
+    }
+  }, [sumParams]);
+
   const classes = useStyles();
 
   function FormRow() {
@@ -130,7 +159,14 @@ export function Session() {
       <Grid item sm={12}>
         <Grid container direction="row" spacing={6}>
           <Grid item xs={6} sm={3}>
-            <Button variant="outlined">New Game</Button>
+            <Button
+              variant="outlined"
+              onClick={() => {
+                console.log(gameState);
+              }}
+            >
+              New Game
+            </Button>
           </Grid>
           <Grid item xs={6} sm={3}>
             <Button variant="outlined">Refresh Game</Button>
