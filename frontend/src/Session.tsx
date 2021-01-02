@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import { Button } from '@material-ui/core';
 import Grid from '@material-ui/core/Grid';
-import { useParams, RouteComponentProps } from 'react-router-dom';
+import { Redirect, RouteComponentProps } from 'react-router-dom';
 import { validateSessionId } from './util';
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -34,15 +34,21 @@ type SessionProps = RouteComponentProps<SessionParams>;
 export function Session({ match }: SessionProps) {
   const session_id = match.params.session_id;
   const [gameState, setGameState] = useState<GameState>();
+  const [redirectHome, setRedirectHome] = useState<boolean>(false);
 
   useEffect(() => {
     if (validateSessionId(session_id)) {
       fetch(`/session/${session_id}`)
         .then((response) => response.json())
         .then((data: GameState) => setGameState(data))
-        .catch((error) => console.log(error));
+        .catch((error) => {
+          console.log(error);
+          setRedirectHome(true);
+        });
+    } else {
+      setRedirectHome(true);
     }
-  }, []);
+  }, [session_id]);
 
   const classes = useStyles();
 
@@ -80,6 +86,7 @@ export function Session({ match }: SessionProps) {
 
   return (
     <div>
+      {redirectHome && <Redirect to={{ pathname: '/' }} />}
       <Grid container direction="column" spacing={4}>
         <Grid item sm={12} md>
           <Grid container direction="row" spacing={3}>
