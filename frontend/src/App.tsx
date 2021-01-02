@@ -87,6 +87,9 @@ export default function App() {
                       align="center"
                       variant="h6"
                       color="primary"
+                      onClick={() => {
+                        window.open('/', '_self');
+                      }}
                     >
                       CodeNames
                     </Typography>
