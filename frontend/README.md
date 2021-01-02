@@ -1,46 +1,38 @@
-# Getting Started with Create React App
+##Front end Logic
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+React will take care of any heavy lifting with game logic, and will use derived state
+to figure out the details not directly in the game-state payload.
 
-## Available Scripts
+The backend will simply store the state via session and provide crud operations to update the
+state (the state is black box). It will keep track of turns, and current color.
 
-In the project directory, you can run:
+Game State Spec:
 
-### `npm start`
+found in `backend/utils/types.py`
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+High level Operations:
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+Points are derived from how many cards are left
 
-### `npm test`
+Game loop:
+    
+    if at any point, the red or blue cards revealed are 0 then the team that gets 0, wins
+    a) Click on Card:
+        - if same color as turn, then update the state of cards to reveal
+        - if opposite team color, update the state of cards and reveal, but switch turn
+        - if color is gray, then update the state of card and reveal, and swich
+        - if color is black, then update the state of the card, reveal game over, other team wins
+    b) When next turn is called, the turn will switch and the round will increment 
+    
+When New game is clicked, a fresh state is generated with same session id from backend
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Technical Jargon
+    
+    A state variable called didClientUpdate will be insantiated, and set to True only when client makes changes
+    from their game state.
 
-### `npm run build`
+    The game state object will be constantly updated via long-polling get running on a interval thread.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+    The game-state object will have a useEffect attached to it that will POST to the backend anytime there's a
+    a change (i.e. a card is clicked, and revealed) on gamestate and didClientUpdate is set to true. Once the 
+    change has been posted then didClientUpdate will be set to False.

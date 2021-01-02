@@ -87,7 +87,7 @@ export function Session({ match }: SessionProps) {
   return (
     <div>
       {redirectHome && <Redirect to={{ pathname: '/' }} />}
-      <Grid container direction="column" spacing={4}>
+      <Grid container direction="column" spacing={2}>
         <Grid item sm={12} md>
           <Grid container direction="row" spacing={3}>
             <Grid item xs={6} sm={3}>
@@ -171,18 +171,21 @@ export function Session({ match }: SessionProps) {
             <Button
               variant="outlined"
               onClick={() => {
-                console.log(gameState);
+                navigator.clipboard
+                  // .writeText(
+                  //   `${window.location.hostname}/session/${session_id}`
+                  // )
+                  .writeText(
+                    `${window.location.hostname}:3000/session/${session_id}`
+                  )
+                  .then((r) => console.log('Copied Link!'));
               }}
             >
-              New Game
+              Copy Game Link
             </Button>
           </Grid>
-          <Grid item xs={6} sm={3}>
-            <Button variant="outlined">Refresh Game</Button>
-          </Grid>
-          <Grid item xs={6} sm={3}>
-            <Button variant="outlined">Copy URL to Game </Button>
-          </Grid>
+          <Grid item xs={6} sm={3} />
+          <Grid item xs={6} sm={3} />
           <Grid item xs={6} sm={3}>
             <Button variant="contained" color="primary">
               Next Turn
