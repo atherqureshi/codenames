@@ -16,6 +16,7 @@ export function Home() {
         .then((response) => response.json())
         .then((data) => {
           setCreateSessionClicked(false);
+          window.open(`/session/${data.session_id}`, '_self');
         })
         .catch((error) => {
           setCreateSessionClicked(false);
@@ -78,7 +79,9 @@ export function Home() {
               if (validateSessionId(currentSessionID)) {
                 fetch(`/session/${currentSessionID}`)
                   .then((response) => response.json())
-                  .then(() => window.open(`session/${currentSessionID}`))
+                  .then(() =>
+                    window.open(`session/${currentSessionID}`, '_self')
+                  )
                   .catch((error) =>
                     setSessionInputError('No Session ID Found')
                   );
