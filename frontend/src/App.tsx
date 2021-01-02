@@ -103,7 +103,11 @@ export default function App() {
             <Grid item md>
               <Paper variant="outlined" className={classes.paper}>
                 <Switch>
-                  <Route path="/session/:session_id" children={<Session />} />
+                  <Route
+                    exact
+                    path="/session/:session_id"
+                    component={Session}
+                  />
                   <Route path="/">
                     <Home />
                   </Route>

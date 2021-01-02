@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import { Button } from '@material-ui/core';
 import Grid from '@material-ui/core/Grid';
-import { useParams } from 'react-router-dom';
+import { useParams, RouteComponentProps } from 'react-router-dom';
 import { validateSessionId } from './util';
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -25,22 +25,24 @@ export type GameState = {
   cards: Card[];
 };
 
-export function Session() {
-  console.log(useParams());
-  const { sumParams } = useParams<{ sumParams: string }>();
-  console.log(sumParams);
+type SessionParams = {
+  session_id: string;
+};
+
+type SessionProps = RouteComponentProps<SessionParams>;
+
+export function Session({ match }: SessionProps) {
+  const session_id = match.params.session_id;
   const [gameState, setGameState] = useState<GameState>();
 
-  console.log(sumParams);
-
   useEffect(() => {
-    if (validateSessionId(sumParams)) {
-      fetch(`/session/${sumParams}`)
+    if (validateSessionId(session_id)) {
+      fetch(`/session/${session_id}`)
         .then((response) => response.json())
         .then((data: GameState) => setGameState(data))
         .catch((error) => console.log(error));
     }
-  }, [sumParams]);
+  }, []);
 
   const classes = useStyles();
 
