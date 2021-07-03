@@ -37,6 +37,9 @@ single-threaded server.
 We use docker-compose to orchestrate our local containers. Once you have run the containers use:
 
 You can visit the frontend server by visiting: `localhost:3000`
+- Note, you need to run `yarn`, and `yarn build` on host PRIOR to running the container, this will build your dependencies that will then be copied into the container
+- Node: https://nodejs.org/en/download/package-manager/
+- yarn: https://classic.yarnpkg.com/en/docs/install/
 
 You can also hit the backend server by hitting `localhost:8000`
 
