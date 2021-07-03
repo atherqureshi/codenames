@@ -4,7 +4,7 @@ Data is stored in redis. This is all hosted using free cloud infra
 
 The gcp hosted version of the game can be reached at: TBD
 
-![Screenshot](capture.PNG)
+![Screenshot](screenshot.PNG)
 
 ## Application Structure
 
