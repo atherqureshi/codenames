@@ -172,13 +172,9 @@ export function Session({ match }: SessionProps) {
               variant="outlined"
               onClick={() => {
                 navigator.clipboard
-                  // .writeText(
-                  //   `${window.location.hostname}/session/${session_id}`
-                  // )
                   .writeText(
                     `${window.location.hostname}:3000/session/${session_id}`
                   )
-                  .then((r) => console.log('Copied Link!'));
               }}
             >
               Copy Game Link

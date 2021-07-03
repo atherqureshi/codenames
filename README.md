@@ -4,6 +4,8 @@ Data is stored in redis. This is all hosted using free cloud infra
 
 The gcp hosted version of the game can be reached at: TBD
 
+![Screenshot](capture.PNG)
+
 ## Application Structure
 
 The idea is long-polling happening on the frontend to the backend service for game state.
